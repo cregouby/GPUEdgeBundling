@@ -47,13 +47,26 @@ Float32Array.prototype.fill2DArrayWithOrderedIndices = function() {
         }
     }
 };
+Float32Array.prototype.fill3DArrayWithOrderedIndices = function() {
+    if (this.comp < 3) // not possible for 1D arrays
+        return;
+    for (var i = 0; i< this.height; i++) {
+        for (var j = 0; j < this.width; j++) {
+            for (var k = 0; k < this.comp; k++) {
+                this.setTo(i,j,0,i);
+                this.setTo(i,j,1,j);
+                this.setTo(i,j,2,k);
+            }
+        }
+    }
+};
 
 /**
  * Get element (r,c) of a 2D array at components k. Components are used for vectors: ex. for an RGBA 2D vector, to
  * address R, we use (r,c,0); to address B, we use (r,c,2). Row major.
  * @param r row number
  * @param c column number
- * @param k strand value
+ * @param k component value
  * @returns {*}
  */
 Float32Array.prototype.get = function(r,c,k) {
